@@ -333,7 +333,7 @@ export default function AboutPage() {
 
 
                                     {/* Current Section */}
-                                    <li className="inline-flex items-center text-yellow-500 font-semibold">
+                                    <li className="inline-flex items-center text-maroon font-semibold">
                                         {currentSection?.title}
                                     </li>
                                 </ol>
