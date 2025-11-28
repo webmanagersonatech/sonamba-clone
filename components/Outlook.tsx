@@ -285,18 +285,14 @@ export default function OutlookPage() {
               ))}
             </div>
             {/* Extra */}
-            <div className="px-6 sm:px-8">
+            <div className="px-6 sm:px-8  border border-gray-100 ">
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
                 <span className="font-semibold text-maroon">PGDM</span> gives you the skills and mindset to excel in modern business roles.
               </p>
 
 
             </div>
-            {/* CTA */}
-            <div className="p-6 sm:p-8 mt-auto">
-              <div className="h-px bg-gray-100 mb-5"></div>
-
-            </div>
+       
           </div>
         </motion.div>
       </div>
