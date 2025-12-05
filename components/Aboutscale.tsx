@@ -104,7 +104,7 @@ export default function About() {
 
 
 
-            <div className="space-y-6 text-gray-700 text-lg text-justify leading-relaxed">
+            <div className="space-y-6 text-gray-700 text-sm sm:text-base md:text-lg text-justify leading-relaxed">
               <p>
                 Welcome to SCALE - Sona School of Business & Management (SSBM),
                 a bold new leap in business education where technology, industry
@@ -166,7 +166,7 @@ export default function About() {
                 <span className="font-bold text-maroon ">
                   Industry-Integrated Learning
                 </span>{" "}
-                in Bangalore's premier industrial ecosystem
+                <span className="italic">in Bangalore's premier industrial ecosystem</span>
               </p>
             </motion.div>
           </motion.div>
