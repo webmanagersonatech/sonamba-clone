@@ -116,10 +116,10 @@ export default function Header() {
       <div className="fixed left-0 right-0 z-50 w-full">
         {/* Topbar */}
         <div className={`w-full text-white relative z-50 transition-all duration-300 ${scrolled
-          ? "bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD]"
+          ? "bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B]"
           : pathname === "/"
             ? "bg-transparent"
-            : "bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD]" // other pages default maroon (optional adjust opacity)
+            : "bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B]" // other pages default maroon (optional adjust opacity)
           }`}>
           <div className="flex items-center justify-between px-4 sm:px-6 py-2 text-sm">
 
@@ -172,7 +172,7 @@ export default function Header() {
                     placeholder="Search..."
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
-                    className="w-full px-3 py-1 text-sm border-b-2 border-white outline-none bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD] text-white placeholder:text-white/70"
+                    className="w-full px-3 py-1 text-sm border-b-2 border-white outline-none bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B] text-white placeholder:text-white/70"
                     autoFocus
                   />
                   {/* Suggestions */}
@@ -235,9 +235,9 @@ export default function Header() {
                       : "text-maroon text-[10px] sm:text-[12px] md:text-sm xl:text-base" // non-home pages
                       }`}
                   >
-                    Post Graduate
+                    Post Graduate Diploma
                     <br />
-                    Diploma in Management.
+                    in Management
                   </p>
 
                 </div>
@@ -257,7 +257,7 @@ export default function Header() {
                     : "text-gray-600"
                     }`}
                 >
-                  A unit of Sona College of Technology
+                  A unit of Sona Valliyappa Groups
                 </a>
 
               </p>

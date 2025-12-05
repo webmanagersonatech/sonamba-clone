@@ -1,43 +1,75 @@
 "use client";
 
-import { motion, Variants } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import { useEffect, useState } from "react";
 
-// Safe cubic easing
+// Safe cubic bezier easing
 const cubicEase: [number, number, number, number] = [0.25, 0.1, 0.25, 1];
 
-// Parent container for stagger
-const heroVariants: Variants = {
-  hidden: {},
-  visible: { transition: { staggerChildren: 0.25 } },
+// Content items to loop
+const heroContents = [
+  {
+    title:
+      "India’s New-Age Tech Business School for the Next Generation of Global Leaders",
+    desc: "By the Industry, for the Industry, to the Industry",
+    btn: "Apply Now →",
+    link: "https://www.sonabusinessschool.com/online-application?inst_id=ZFSQSGGCPYXQ9589",
+  },
+  {
+    title: "The Two-Year Fully Residential PGDM Programme",
+    desc: "The flagship PGDM is a fully residential, immersive journey ",
+    btn: "Learn More",
+    link: "#",
+  },
+
+];
+const containerVariant: Variants = {
+  hidden: { opacity: 0 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.03, delayChildren: 0.2 },
+  },
+  exit: {
+    opacity: 0,
+    y: -30,
+    transition: { duration: 0.6, ease: cubicEase },
+  },
 };
 
-// Title animation
-const titleVariant: Variants = {
-  hidden: { opacity: 0, y: -30 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: cubicEase } },
+const letterVariant: Variants = {
+  hidden: { opacity: 0, y: 40 },
+  visible: {
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.5, ease: cubicEase },
+  },
 };
 
-// Description animation
 const descVariant: Variants = {
-  hidden: { opacity: 0, y: 20 },
-  visible: { opacity: 1, y: 0, transition: { duration: 0.8, ease: cubicEase } },
+  hidden: { opacity: 0, y: 20, filter: "blur(6px)" },
+  visible: {
+    opacity: 1,
+    y: 0,
+    filter: "blur(0px)",
+    transition: { duration: 0.7, ease: cubicEase },
+  },
 };
 
-// Button animation
 const buttonVariant: Variants = {
   hidden: { opacity: 0, scale: 0.9 },
   visible: {
     opacity: 1,
     scale: 1,
-    transition: { duration: 0.8, ease: cubicEase },
+    transition: { duration: 0.7, ease: cubicEase },
   },
 };
 
 export default function Hero() {
   const [headerHeight, setHeaderHeight] = useState(0);
+  const [index, setIndex] = useState(0);
+  const [show, setShow] = useState(true);
 
-  // Dynamically get header height
+  // Dynamic header height
   useEffect(() => {
     const updateHeaderHeight = () => {
       const header = document.querySelector("header");
@@ -46,6 +78,7 @@ export default function Hero() {
         (header?.clientHeight || 0) + (topHeader?.clientHeight || 0);
       setHeaderHeight(totalHeight);
     };
+
     updateHeaderHeight();
     window.addEventListener("resize", updateHeaderHeight);
     window.addEventListener("scroll", updateHeaderHeight);
@@ -56,6 +89,24 @@ export default function Hero() {
     };
   }, []);
 
+  // Loop content animation
+  useEffect(() => {
+    const timer = setTimeout(() => {
+      setShow(false); // fade-out
+
+      setTimeout(() => {
+        setIndex((prev) => (prev + 1) % heroContents.length);
+        setShow(true); // fade-in next
+      }, 600);
+    }, 6000); // each block visible for 4 sec
+
+    return () => clearTimeout(timer);
+  }, [index]);
+  // Splits text into characters safely typed
+  const splitText = (text: string): string[] => {
+    return text.split("");
+  };
+
   return (
     <section
       id="home"
@@ -64,7 +115,7 @@ export default function Hero() {
     >
       {/* Background Video */}
       <video
-        className="absolute inset-0 w-full h-full object-cover object-center"
+        className="absolute inset-0 w-full h-full object-cover"
         src="/images/hero/download.webm"
         autoPlay
         muted
@@ -72,54 +123,65 @@ export default function Hero() {
         playsInline
       />
 
-      {/* Dark Overlay */}
+      {/* Overlay */}
       <div className="absolute inset-0 bg-black/50"></div>
 
       {/* Content */}
-      <motion.div
-        initial="hidden"
-        animate="visible"
-        variants={heroVariants}
-        className="relative z-10 container mx-auto px-4 flex flex-col justify-center items-center sm:items-start text-center sm:text-left h-full"
-      >
-        <motion.h1
-          variants={titleVariant}
-          className="text-white text-4xl sm:text-6xl font-bold leading-tight"
-        >
-          Global Learning, Local Impact
-        </motion.h1>
+      <div className="relative z-10 container mx-auto px-4 h-full flex items-center">
+        <AnimatePresence mode="wait">
+          {show && (
+            <motion.div
+              key={index}
+              variants={containerVariant}
+              initial="hidden"
+              animate="visible"
+              exit="exit"
+              className="flex flex-col items-center sm:items-start text-center sm:text-left"
+            >
+              {/* LETTER ANIMATION TITLE */}
+              <motion.h1 className="text-white text-4xl sm:text-6xl font-bold leading-tight flex flex-wrap">
+                {splitText(heroContents[index].title).map((char: string, i: number) => (
+                  <motion.span key={i} variants={letterVariant}>
+                    {char === " " ? "\u00A0" : char}
+                  </motion.span>
+                ))}
 
-        <motion.p
-          variants={descVariant}
-          className="mt-4 text-gray-200 text-lg sm:text-xl max-w-xl"
-        >
-          Our MBA prepares you to lead with confidence.
-        </motion.p>
+              </motion.h1>
 
-        <motion.a
-          variants={buttonVariant}
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-          href="https://www.sonabusinessschool.com/online-application?inst_id=ZFSQSGGCPYXQ9589"
-          target="_blank"
-          className="relative inline-flex items-center border border-white justify-start mt-6 px-6 py-3 overflow-hidden font-medium transition-all  
-  border border-transparent rounded group"
-        >
-          <span
-            className="w-48 h-48 rounded border rotate-[-40deg] bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD]
-      absolute bottom-0 left-0 -translate-x-full translate-y-full mb-9 ml-9
-      transition-all duration-500 ease-out
-      group-hover:ml-0 group-hover:mb-32 group-hover:translate-x-0"
-          ></span>
+              {/* DESCRIPTION */}
+              <motion.p
+                variants={descVariant}
+                className="mt-4 text-gray-200 text-lg sm:text-xl max-w-xl"
+              >
+                {heroContents[index].desc}
+              </motion.p>
 
-          <span className="relative w-full text-left text-white transition-colors duration-300 ease-in-out group-hover:text-white">
-            Apply Now →
-          </span>
-        </motion.a>
+              {/* BUTTON */}
+              <motion.a
+                variants={buttonVariant}
+                href={heroContents[index].link}
+                target="_blank"
+                whileHover={{ scale: 1.05 }}
+                whileTap={{ scale: 0.95 }}
+                className="relative inline-flex items-center border border-white mt-6 px-6 py-3 overflow-hidden rounded group"
+              >
+                <span
+                  className="w-48 h-48 rounded-xl rotate-[-40deg] 
+  bg-white/40 backdrop-blur-md shadow-[0_0_40px_rgba(255,255,255,0.6)]
+  absolute bottom-0 left-0 -translate-x-full translate-y-full mb-9 ml-9
+  transition-all duration-500 ease-out
+  group-hover:translate-x-0 group-hover:-translate-y-10 group-hover:ml-0"
+                />
 
+                <span className="relative text-white">
+                  {heroContents[index].btn}
+                </span>
+              </motion.a>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
-
-      </motion.div>
     </section>
   );
 }

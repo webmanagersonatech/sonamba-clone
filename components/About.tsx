@@ -5,7 +5,8 @@ import { useEffect, useState } from "react";
 import Image from "next/image";
 import Link from "next/link";
 import { useInView } from "react-intersection-observer";
-import { Md360 } from "react-icons/md";
+import AOS from "aos";
+import "aos/dist/aos.css";
 
 export default function About() {
   const [counts, setCounts] = useState({
@@ -19,6 +20,9 @@ export default function About() {
     triggerOnce: true,
     threshold: 0.3,
   });
+  useEffect(() => {
+    AOS.init({ duration: 1000, once: true });
+  }, []);
 
   // Counter Animation
   useEffect(() => {
@@ -68,8 +72,8 @@ export default function About() {
           className="md:hidden w-full text-center"
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-            <span className="text-yellow-500">About </span>
-            <span className="text-maroon">SONA GROUP</span>
+            <span className="text-gray-500">About </span>
+            <span className="text-maroon">SONA VALLIAPPA GROUP</span>
           </h2>
         </motion.div>
 
@@ -120,29 +124,9 @@ export default function About() {
 
             {/* Text scales with the badge */}
             <div className="text-[clamp(0.5rem,1.5vw,1rem)] text-center leading-tight text-maroon-800">
-              INDUSTRY & <br /> ACCADAMY
+              INDUSTRY & <br /> ACADEMY
             </div>
           </motion.div>
-
-
-          {/* Mobile + Tablet 360° Button */}
-          <div className="mt-4 flex justify-center md:hidden">
-            <a
-              href="https://www.sonatech.ac.in/campus-360-virtual-tour/MBA/index.htm"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="flex items-center justify-center px-4 py-2 bg-maroon text-white font-bold rounded-lg shadow-lg hover:bg-maroon/80 transition-colors duration-300 text-sm sm:text-base"
-            >
-              <Md360 className="mr-2 w-5 h-5" /> {/* Icon moved to left with right margin */}
-              View 360°
-            </a>
-          </div>
-
-
-
-
-
-
 
 
         </motion.div>
@@ -158,29 +142,51 @@ export default function About() {
           {/* Mobile Heading */}
           <div className="hidden md:flex flex-col md:flex-row md:justify-between md:items-center text-center md:text-left space-y-2 md:space-y-0">
             {/* Heading */}
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
-              <span className="text-gray-500 block md:inline">About </span>
-              <span className="text-maroon block md:inline">SONA GROUP</span>
-            </h2>
+            <div className="inline-block relative">
+              <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 relative z-10">
+                <span className="text-gray-500 block md:inline">About </span>
+                <span className="text-maroon block md:inline">SONA VALLIAPPA GROUP</span>
+              </h2>
 
-            {/* 360° Button */}
-            <a
-              href="https://www.sonatech.ac.in/campus-360-virtual-tour/MBA/index.htm"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="relative px-4 py-2 bg-maroon text-white font-bold rounded-lg shadow-lg hover:bg-maroon/80 transition-colors duration-300 text-sm sm:text-base inline-block"
-            >
-              View 360°
-              <Md360 className="absolute top-0 left-0 w-5 h-5 bg-maroon rounded-full text-white -translate-x-1/2 -translate-y-1/2" />
-            </a>
+              {/* LEFT → CENTER */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                viewport={{ once: true }}
+                className="absolute left-0 -bottom-1 h-[3px] w-[51%] bg-maroon origin-left rounded-full"
+              />
+
+              {/* RIGHT → CENTER */}
+              <motion.div
+                initial={{ scaleX: 0 }}
+                whileInView={{ scaleX: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut", delay: 0.08 }}
+                viewport={{ once: true }}
+                className="absolute right-0 -bottom-1 h-[3px] w-[51%] bg-maroon origin-right rounded-full"
+              />
+            </div>
           </div>
 
 
 
           {/* Text */}
-          <p className="text-gray-700 leading-relaxed text-sm sm:text-base md:text-lg text-justify ">
-            The Sona Group began in the early 20th century under industrialist and philanthropist Karumuttu Thiagarajar Chettiar, whose mission was to empower society through industry and education. A well-known moment in its history is Mahatma Gandhi’s visit to Chettiar’s residence, where Gandhi adopted the simple loincloth as a symbol of solidarity with the poor. Over the years, the Group expanded from textiles into key sectors such as engineering, technology, and national development. The Sona Group played an influential role in India’s industrial growth through modern textile mills, engineering research centres, and major tower implementations that improved communication and infrastructure across the country. Its education wing later grew into renowned institutions, including Sona College of Technology and the Sona School of Business and Management (SSBM), continuing the legacy of quality, innovation, and social responsibility.
+          <p data-aos="fade-up"
+            className="text-gray-700 leading-relaxed text-sm sm:text-base md:text-lg text-justify"
+          >
+            The Sona Group is steeped in more than 100 years of success and tradition tracing back to pre-Independence.
+            The group was founded by the doyen of textile industries of the early twentieth century,
+            Karumuttu Thiagarajar Chettiar.
+            <br /><br />
+            The selfless vision, the noble principles, the mettle, the singleness of purpose,
+            and the untiring industriousness of Karumuttu Thiagarajar Chettiar have been the
+            solid foundational blocks upon which the towering success of the Sona Group has been built.
+            <br /><br />
+            The Sona Group has since been toeing the same line of ideology and has emerged as a
+            valuable global conglomerate of national importance.
           </p>
+
+
 
           {/* Counters */}
           <motion.div

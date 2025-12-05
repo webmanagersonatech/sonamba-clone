@@ -8,7 +8,7 @@ export default function Footer() {
   const base64String = "/images/about/logo.webp"
 
   return (
-    <footer className="bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD] text-grayText">
+    <footer className="bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B] text-grayText">
       <div className="container mx-auto px-4 py-12">
         <div className="grid gap-10 lg:grid-cols-3">
 

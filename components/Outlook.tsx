@@ -70,7 +70,7 @@ export default function OutlookPage() {
 
   const stats = [
     {
-      icon: <Award className="w-10 h-10 text-[#00474a]" />,
+      icon: <Award className="w-10 h-10 text-[#B98A5A]" />,
       value: (
         <>
           <CountUp end={9} duration={2} />
@@ -80,7 +80,7 @@ export default function OutlookPage() {
       label: "Outlook B-School Rank (Tamil Nadu)",
     },
     {
-      icon: <Briefcase className="w-10 h-10 text-[#00474a]" />,
+      icon: <Briefcase className="w-10 h-10 text-[#B98A5A]" />,
       value: (
         <>
           <CountUp end={98} duration={2} />%
@@ -89,7 +89,7 @@ export default function OutlookPage() {
       label: "Placement Record",
     },
     {
-      icon: <Building2 className="w-10 h-10 text-[#00474a]" />,
+      icon: <Building2 className="w-10 h-10 text-[#B98A5A]" />,
       value: (
         <>
           <CountUp end={100} duration={2} />+
@@ -98,7 +98,7 @@ export default function OutlookPage() {
       label: "Industry Partners",
     },
     {
-      icon: <ShieldCheck className="w-10 h-10 text-[#00474a]" />,
+      icon: <ShieldCheck className="w-10 h-10 text-[#B98A5A]" />,
       value: "A++",
       label: "NAAC Accreditation",
     },
@@ -177,11 +177,12 @@ export default function OutlookPage() {
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200 }}
               className="flex flex-col items-center p-4 rounded-xl 
-                bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD]
+                bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B]
                  backdrop-blur-sm shadow-md hover:shadow-xl 
                  border border-white/10 cursor-pointer"
             >
-              <div className="mb-2 ">
+              <div className="relative mb-2 p-2 rounded-full bg-white/10 border border-white/20
+                        backdrop-blur-md shadow-inner">
                 {item.icon}
               </div>
 
@@ -246,7 +247,7 @@ export default function OutlookPage() {
           <div className="bg-white rounded-xl shadow-xl overflow-hidden h-full flex flex-col">
             {/* Header */}
             <div className="p-6 sm:p-8 text-white 
-                bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD]
+                bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B]
                 rounded-t-xl shadow-md">
               <h2 className="text-xl sm:text-2xl md:text-3xl font-bold mb-3">
                 PGDM
@@ -292,7 +293,7 @@ export default function OutlookPage() {
 
 
             </div>
-       
+
           </div>
         </motion.div>
       </div>

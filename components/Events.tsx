@@ -82,7 +82,7 @@ export default function NewsEvents() {
             <img src={item.image} alt={item.title} className="w-full h-36 object-cover" />
             <div className="flex p-3 gap-3 items-start">
               <div className="flex flex-col items-center w-14 rounded-lg border shadow">
-                <span className="bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD] text-white w-full text-center rounded-t-lg text-xs font-bold py-1">
+                <span className="bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B] text-white w-full text-center rounded-t-lg text-xs font-bold py-1">
                   {month}
                 </span>
                 <span className="text-lg font-bold leading-tight text-[#006466]">{day}</span>

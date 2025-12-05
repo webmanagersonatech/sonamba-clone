@@ -2,11 +2,12 @@
 
 import { useState, useRef, useEffect } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, Variants, AnimatePresence } from "framer-motion";
 import DiamondStar from "../../components/DiamondStar";
 import NewsCarousel from "../../components/NewsCarousel";
 import Link from "next/link";
 import { FiInfo, FiEye, FiBook, FiClock, FiUsers, FiX, FiMaximize } from "react-icons/fi";
+
 import {
     FaInstagram,
     FaTwitter,
@@ -14,32 +15,103 @@ import {
     FaFacebook,
 
 } from 'react-icons/fa';
-export default function AboutPage() {
+
+import { FaLightbulb, FaRocket, FaIndustry, FaCogs, FaShieldAlt, FaStar, FaShoppingCart, FaLaptopCode, FaHospital, FaBuilding, FaChartLine } from "react-icons/fa";
+import { RiBuilding4Line } from "react-icons/ri";
+import { MdAnalytics, MdBusiness, MdOutlineAutoFixHigh, MdInsights } from "react-icons/md";
+
+type TabId =
+    | "aboutus"
+    | "vision"
+    | "history"
+    | "chairman"
+    | "management"
+
+
+interface Section {
+    id: TabId;
+    title: string;
+    icon: any;
+}
+export default function AboutPage({ activeSlug }: any) {
     const router = useRouter();
     const searchParams = useSearchParams();
-    const [activeTab, setActiveTab] = useState("about");
+    const [activeTab, setActiveTab] = useState("aboutus");
     const [selectedNews, setSelectedNews] = useState<any | null>(null);
-    const [newsIndex, setNewsIndex] = useState(0);
+
     const [isFullscreen, setIsFullscreen] = useState(false);
     const [underlineProps, setUnderlineProps] = useState({ left: 0, width: 0 });
     const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
     const containerRef = useRef<HTMLDivElement | null>(null);
 
-    const sections = [
-        { id: "about", title: "About Us", icon: FiInfo },
+    const sections: Section[] = [
+        { id: "aboutus", title: "About Us", icon: FiInfo },
         { id: "vision", title: "Vision & Mission", icon: FiEye },
         { id: "history", title: "History", icon: FiClock },
         { id: "chairman", title: "Chairman's Books", icon: FiBook },
         { id: "management", title: "Management Profile", icon: FiUsers },
     ];
-
-
     useEffect(() => {
-        const interval = setInterval(() => {
-            setNewsIndex((prev) => prev + 1);
-        }, 5000);
-        return () => clearInterval(interval);
-    }, []);
+        if (activeSlug && sections.some((s) => s.id === activeSlug)) {
+            setActiveTab(activeSlug);
+        }
+    }, [activeSlug, sections]);
+
+    const fadeUp: Variants = {
+        hidden: { opacity: 0, y: 30 },
+        visible: {
+            opacity: 1,
+            y: 0,
+            transition: {
+                type: "spring",      // ✅ literal, not string
+                stiffness: 50,
+                damping: 14,
+            },
+        },
+    };
+    const containerVariants: Variants = {
+        hidden: {},
+        visible: {
+            transition: {
+                staggerChildren: 0.15, // each child appears 0.15s after previous
+            },
+        },
+    };
+
+    const itemVariants: Variants = {
+        hidden: { opacity: 0, y: 20 },
+        visible: { opacity: 1, y: 0, transition: { type: "spring", stiffness: 80, damping: 18 } },
+    };
+    const focusAreas = [
+        { icon: <MdBusiness className="text-maroon" />, label: "Automation Strategy" },
+        { icon: <MdBusiness className="text-maroon" />, label: "GCC Setup & Transformation" },
+        { icon: <FaRocket className="text-maroon" />, label: "Business Growth" },
+        { icon: <MdInsights className="text-maroon" />, label: "Innovation Strategy" },
+        { icon: <MdBusiness className="text-maroon" />, label: "Private Equity & Partner Strategy" },
+        { icon: <MdInsights className="text-maroon" />, label: "Market & Technology Insights" },
+    ];
+
+    const industries = [
+        { icon: <FaShoppingCart className="text-maroon" />, label: "CPG & Retail" },
+        { icon: <FaLaptopCode className="text-maroon" />, label: "ERP Software" },
+        { icon: <FaBuilding className="text-maroon" />, label: "Engineering R&D & Digital Services" },
+        { icon: <FaChartLine className="text-maroon" />, label: "Financial Services" },
+        { icon: <FaHospital className="text-maroon" />, label: "Healthcare" },
+        { icon: <FaIndustry className="text-maroon" />, label: "Industrials" },
+    ];
+    const focusItems = [
+        { icon: <FaCogs className="text-white" />, label: "Advanced Technological Services" },
+        { icon: <FaChartLine className="text-white" />, label: "Strategic Insights" },
+        { icon: <FaLightbulb className="text-white" />, label: "Innovation-driven Solutions" },
+        { icon: <FaShieldAlt className="text-white" />, label: "Operational Improvement" },
+        { icon: <FaRocket className="text-white" />, label: "Competitive Advantage" },
+    ];
+    const milestones = [
+        "Creation of Valliappa Software Tech Park (VSTP)—now Sona Towers—in the 1980s.",
+        "Hosted Texas Instruments, the first global software design centre in India.",
+        "Followed by Verifone, Oracle, Cisco, and global technology giants.",
+        "Installed India’s first satellite uplink facilities in 1985.",
+    ];
 
 
     useEffect(() => {
@@ -70,10 +142,9 @@ export default function AboutPage() {
     }, [activeTab]);
 
 
-
-    const handleTabChange = (tabId: string) => {
+    const handleTabChange = (tabId: TabId) => {
         setActiveTab(tabId);
-        router.replace(`/about?tab=${tabId}` as any);
+        router.push(`/about/${tabId}`);
     };
 
     const managementData: any[] = [
@@ -204,7 +275,7 @@ export default function AboutPage() {
         },
     ];
     const tabImages: any = {
-        about: "/images/banner/about-banners/about-us.webp",
+        aboutus: "/images/banner/about-banners/about-us.webp",
         vision: "/images/banner/about-banners/Vision-mission.webp",
         history: "/images/banner/about-banners/history.webp",
         chairman: "/images/banner/about-banners/chairmans-books.webp",
@@ -271,16 +342,7 @@ export default function AboutPage() {
 
                 <div className="w-full relative">
                     <AnimatePresence mode="wait">
-                        {/* <motion.img
-                        key={tabImages[activeTab]} // re-triggers animation when activeTab changes
-                        src={tabImages[activeTab] || ""}
-                        alt="Corporate Banner"
-                        className="w-full h-56 sm:h-64 md:h-80 lg:h-96 object-cover"
-                        initial={{ x: "-100%", opacity: 0 }}
-                        animate={{ x: 0, opacity: 1 }}
-                        exit={{ x: "100%", opacity: 0 }}
-                        transition={{ duration: 0.6, ease: "easeInOut" }}
-                    /> */}
+
                         <motion.img
                             key={tabImages[activeTab]}
                             src={tabImages[activeTab] || ""}
@@ -333,7 +395,7 @@ export default function AboutPage() {
 
 
                                     {/* Current Section */}
-                                    <li className="inline-flex items-center text-maroon font-semibold">
+                                    <li className="inline-flex items-center text-white font-semibold">
                                         {currentSection?.title}
                                     </li>
                                 </ol>
@@ -400,17 +462,13 @@ export default function AboutPage() {
 
 
 
-
-
-
-
                 {/* Content */}
                 <div className="w-full max-w-7xl mx-auto mt-6 sm:mt-8 md:mt-10 relative flex flex-col gap-6 sm:gap-8 md:gap-10 px-4 sm:px-6 lg:px-6">
                     <AnimatePresence mode="wait">
                         {/* About Section */}
-                        {activeTab === "about" && (
+                        {activeTab === "aboutus" && (
                             <motion.div
-                                key="about"
+                                key="aboutus"
                                 variants={tabVariants}
                                 initial="initial"
                                 animate="animate"
@@ -419,95 +477,180 @@ export default function AboutPage() {
                                 className="bg-white rounded-2xl p-6 md:p-10 flex flex-col gap-12 max-w-7xl mx-auto "
                             >
                                 {/* Introduction */}
-                                <div className="flex flex-col gap-6">
-                                    <h3 className="text-2xl md:text-3xl text-center font-bold text-maroon leading-snug">
-                                        SONA <span className="font-semibold">School of Business & Management (SBM)</span>
-                                    </h3>
-                                    <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify">
-                                        Sona MBA is one of the most sought after centres of excellence in Tamil Nadu. It has made its presence in global context as well through its involvement in research, consultancy, teaching and training. Sona MBA is situated in green salubrious Salem, Steel City of Tamil Nadu. The institute offers Master of Business Administration (MBA) program in six specialisations namely<strong> Business Analytics, Finance, Marketing, HR, Productions and Family Business</strong>. Sona MBA offers holistic education giving equal thrust to professional and personal development. It is well connected by Road & Rail 24/7 across different metros. The School is<strong> AICTE approved, NBA accredited, NAAC A++ accredited and ISO certified.</strong> The institute is recognised as "AICTE – CII Award for Best Industry – Linked Technical Institute in India 2019". It stands testimony to the commitment of the management to impart quality higher education.
-                                    </p>
-                                    <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify">
-                                        The Sona MBA has a state-of-the-art infrastructure and a conducive learning environment. The classrooms are designed to meet the modern-day learning environment with<strong> Air-conditioned facilities, Projectors, audio systems, internet facilities</strong> and ergonomically designed furniture. To encourage digital learning the students are provided with iPad / laptops / Tablets, Wi-Fi facility, fully digitalized library, Blackboard learning system, Moodle, CMS and lecture capturing facility that put Sona as par with few IIMs.
-                                    </p>
-                                    <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify">
-                                        The vision & mission of the institute is to become a top-tier business school of eminence with excellence in Management Education, Research and Practice and also to build competencies through continuous learning with global mindset.
-                                    </p>
-                                    <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify">
-                                        Established in 1998, Sona MBA cherishes <strong>27 years of legacy</strong> in creating talented, responsible and society centric management graduates who experience and believe that leadership can be nurtured with human touch.
-                                    </p>
+                                <div className="flex flex-col gap-10 pt-4">
 
-                                    <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify">
-                                        Sona MBA is ranked 8th in Private Institutions in Tamilnadu and 37th in private Institutions in South India. among all the B Schools under the category <strong>“BEST B-SCHOOL Ranking issue”</strong> by THE WEEK
-                                    </p>
+                                    {/* What We Do */}
+                                    <motion.div
+                                        initial="hidden"
+                                        whileInView="visible"
+                                        transition={{ duration: 0.5 }}
+                                        variants={fadeUp}
+                                        viewport={{ once: true }}
+                                        className="bg-[#fefcfa] border-l-[6px] border-maroon rounded-l-xl p-6 md:p-8 shadow-sm hover:shadow-md transition-all"
+                                    >
+                                        <div className="flex items-center gap-2 mb-2">
+                                            <FaLightbulb className="text-maroon text-xl" />
+                                            <h4 className="text-xl font-semibold text-maroon">WHAT WE DO</h4>
+                                        </div>
 
-                                    <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify">
-                                        Sona MBA ranked Top 11 th rank in private Affiliated colleges in <strong>All India and ranked Top 25th in The private B-Schools in South zone </strong> as per “BEST B-SCHOOL Ranking issue 2021 by OUTLOOK.  </p>
-                                </div>
+                                        <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify">
+                                            We provide business organisations with the latest technological services and managerial insights fostering transformational strategies, operational performance improvements, competitive advantage and value creation for their customers at the least cost.
+                                            <br /><br />
+                                            Sona Star Innovation brings robust skills and forward-looking perspectives to solve customer challenges. We use proven knowledge to make recommendations and provide expert guidance to our customers.
+                                        </p>
+                                    </motion.div>
+
+                                    {/* Divider */}
+                                    <div className="h-[1px] bg-gradient-to-r from-transparent via-maroon/30 to-transparent"></div>
+
+                                    {/* IT Revolution */}
+                                    <motion.div
+                                        initial="hidden"
+                                        whileInView="visible"
+                                        transition={{ duration: 0.6 }}
+                                        variants={fadeUp}
+                                        viewport={{ once: true }}
+                                        className="bg-white border border-maroon/30  p-6 md:p-8 shadow-md hover:shadow-lg transition-all"
+                                    >
+                                        <div className="flex items-center gap-2 mb-3">
+                                            <RiBuilding4Line className="text-maroon text-xl" />
+                                            <h4 className="text-xl font-semibold text-maroon">
+                                                Sona Group’s Pioneering Role in India’s IT Revolution
+                                            </h4>
+                                        </div>
+
+                                        <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify mb-4">
+                                            The Sona Group played a foundational role in establishing Bengaluru as the Silicon Valley of India.
+                                        </p>
+
+                                        <h5 className="font-semibold text-gray-800 underline mb-2">Key Milestones</h5>
+
+                                        <div className="flex flex-col gap-2">
+                                            {milestones.map((item, idx) => (
+                                                <div key={idx} className="flex items-start gap-2">
+                                                    <FaStar className="text-maroon-300 mt-1  w-4 h-4 text-xs flex-shrink-0" />
+                                                    <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify">{item}</p>
+                                                </div>
+                                            ))}
+                                        </div>
+
+                                        <p className="text-gray-700 text-sm md:text-base leading-relaxed text-justify mt-4">
+                                            This catalytic contribution ignited Bengaluru’s IT boom and continues to shape India’s digital leadership today.
+                                        </p>
+                                    </motion.div>
+
+                                    {/* Divider */}
+                                    <div className="h-[1px] bg-gradient-to-r from-transparent via-maroon/30 to-transparent"></div>
+
+                                    {/* Transformation */}
 
 
+                                    <motion.div
+                                        initial="hidden"
+                                        whileInView="visible"
+                                        variants={fadeUp}
+                                        viewport={{ once: true }}
+                                        className="bg-[#fefcfa] p-6 md:p-8 border border-maroon/30  transition-all"
+                                    >
+                                        {/* Header */}
+                                        <div className="flex items-center gap-2">
+                                            <FaRocket className="text-maroon text-xl" />
+                                            <h4 className="text-xl font-semibold text-maroon">
+                                                Business Transformation Through Technology
+                                            </h4>
+                                        </div>
 
-                                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mt-6 px-4 sm:px-0">
-                                    {[
-                                        {
-                                            title: "South Zone B-Schools Ranking",
-                                            text: "Ranked Top 9th in The private B-Schools in South Zone by OUTLOOK",
-                                            image: "https://res.cloudinary.com/dscqejyxy/image/upload/v1759905963/Outlook-2025_vol2uv.jpg",
-                                        },
-                                        {
-                                            title: "All India Ranking",
-                                            text: "Ranked Top 11th in private Affiliated colleges in All India",
-                                            image: "/images/about/mag-1.webp",
-                                        },
-                                        {
-                                            title: "South India Ranking",
-                                            text: "Ranked 37th in private Institutions in South India",
-                                            image: "/images/about/mag-3.webp",
-                                        },
-                                    ].map((item, i) => (
-                                        <motion.div
-                                            key={i}
-                                            initial={{ opacity: 0, y: 20 }}
-                                            animate={{ opacity: 1, y: 0 }}
-                                            whileHover={{ scale: 1.05 }}
-                                            className="relative overflow-visible rounded-2xl shadow-lg 
-        group cursor-pointer transition-all duration-500 
-        min-h-[320px] sm:min-h-[340px] md:min-h-[360px] 
-        pb-44 sm:pb-32" // <-- Increased bottom padding for mobile
-                                        >
-                                            {/* Full Background Image */}
-                                            <img
-                                                src={item.image}
-                                                alt={item.title}
-                                                className="absolute top-0 left-0 w-full h-full object-cover rounded-2xl z-0"
-                                            />
+                                        <p className="text-gray-700 text-sm md:text-base leading-relaxed mt-2 mb-4 text-justify">
+                                            We equip enterprises with:
+                                        </p>
 
-                                            {/* Floating Content Box */}
-                                            <div
-                                                className="absolute bottom-0 left-1/2 
-          -translate-x-1/2 translate-y-1/3 sm:translate-y-1/2
-          w-[95%] sm:w-[85%] max-w-xs sm:max-w-sm md:max-w-md 
-          bg-white rounded-xl shadow-xl 
-          p-4 text-center border border-gray-200 z-10 
-          min-h-[120px] flex flex-col justify-center
-          mb-16 sm:mb-0" // <-- Margin bottom for mobile spacing
-                                            >
-                                                <h4 className="text-sm sm:text-base md:text-lg font-semibold text-maroon break-words">
-                                                    {item.title}
-                                                </h4>
-                                                <p className="text-gray-700 text-xs sm:text-sm md:text-base mt-2 leading-snug break-words">
-                                                    {item.text}
+                                        {/* Card items */}
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-3">
+                                            {focusItems.map((item, idx) => (
+                                                <motion.div
+                                                    key={idx}
+                                                    variants={fadeUp}
+                                                    className="relative bg-maroon-100 text-gray-700 rounded-t-lg p-3 flex items-center gap-2 shadow-sm hover:shadow-md transition-all"
+                                                >
+                                                    {/* Icon behind */}
+                                                    <div className="absolute left-3 top-1/2 -translate-y-1/2 text-maroon-300 text-xl z-0">
+                                                        {item.icon}
+                                                    </div>
+
+                                                    {/* Animated Text */}
+                                                    <motion.span
+                                                        className="ml-8"
+                                                        initial={{ opacity: 0, x: 20 }}
+                                                        animate={{ opacity: 1, x: 0 }}
+                                                        transition={{ duration: 0.5, ease: "easeOut", delay: 0.1 * idx }}
+                                                    >
+                                                        {item.label}
+                                                    </motion.span>
+                                                </motion.div>
+                                            ))}
+
+                                        </div>
+                                    </motion.div>
+
+                                    {/* Divider */}
+                                    <div className="h-[1px] bg-gradient-to-r from-transparent via-maroon/30 to-transparent"></div>
+
+                                    {/* Advisory */}
+                                    <motion.div
+                                        initial="hidden"
+                                        whileInView="visible"
+                                        viewport={{ once: true }}
+                                        className="bg-white border border-maroon/40 p-6 md:p-8 stransition-all "
+                                    >
+                                        {/* Header */}
+                                        <div className="flex items-center gap-3 mb-6">
+                                            <MdAnalytics className="text-maroon text-2xl" />
+                                            <h4 className="text-xl font-semibold text-maroon">
+                                                Advisory Board, Offerings & Industries
+                                            </h4>
+                                        </div>
+
+                                        {/* Two sections side by side */}
+                                        <div className="flex flex-col md:flex-row gap-6">
+                                            {/* Focus Areas Section (Left) */}
+                                            <motion.div className="flex-1" variants={containerVariants}>
+                                                <p className="text-gray-800 font-semibold flex items-center gap-2 mb-3">
+                                                    Advisory Board Focus Areas
                                                 </p>
-                                            </div>
-                                        </motion.div>
-                                    ))}
+                                                <div className="flex flex-wrap gap-2">
+                                                    {focusAreas.map((item, idx) => (
+                                                        <motion.div
+                                                            key={idx}
+                                                            variants={itemVariants}
+                                                            className="flex items-center gap-1 text-gray-700 text-sm md:text-base bg-gray-50 px-2 py-1 rounded shadow-sm"
+                                                        >
+                                                            {item.icon} <span>{item.label}</span>
+                                                        </motion.div>
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+
+                                            {/* Industries Served Section (Right) */}
+                                            <motion.div className="flex-1" variants={containerVariants}>
+                                                <p className="text-gray-800 font-semibold flex items-center gap-2 mb-3">
+                                                    Industries Served
+                                                </p>
+                                                <div className="flex flex-wrap gap-2">
+                                                    {industries.map((industry, idx) => (
+                                                        <motion.div
+                                                            key={idx}
+                                                            variants={itemVariants}
+                                                            className="flex items-center gap-1 text-gray-700 text-sm md:text-base bg-gray-50 px-2 py-1 rounded shadow-sm"
+                                                        >
+                                                            {industry.icon} <span>{industry.label}</span>
+                                                        </motion.div>
+                                                    ))}
+                                                </div>
+                                            </motion.div>
+
+                                        </div>
+                                    </motion.div>
                                 </div>
-
-
-
-
-
-
-
                             </motion.div>
                         )}
 

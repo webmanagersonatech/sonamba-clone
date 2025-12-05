@@ -67,7 +67,7 @@ export default function FloatingSidebar() {
           transition={{ duration: 0.15, ease: "easeOut" }} // faster
           className="fixed top-1/3 right-0 z-50 flex flex-col"
         >
-          <div className="relative flex flex-col bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD] rounded-l-xl p-2 max-h-[80vh] overflow-visible">
+          <div className="relative flex flex-col bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B] rounded-l-xl p-2 max-h-[80vh] overflow-visible">
             {/* Close Button */}
             <button
               onClick={() => setVisible(false)}
@@ -101,7 +101,7 @@ export default function FloatingSidebar() {
                       animate={{ opacity: 1 }}
                       exit={{ opacity: 0 }}
                       transition={{ duration: 0.15 }} // faster tooltip
-                      className="absolute right-12 bg-gradient-to-br from-[#006466] via-[#0B7285] to-[#1098AD] text-white px-3 py-2 rounded-l-lg shadow 
+                      className="absolute right-12 bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B] text-white px-3 py-2 rounded-l-lg shadow 
                                  text-xs sm:text-sm font-medium whitespace-nowrap"
                     >
                       {label}
