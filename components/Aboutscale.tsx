@@ -77,7 +77,7 @@ export default function About() {
       opacity-90 pointer-events-none"
       ></div>
 
-      <div className="container relative z-10 mx-auto px-4 sm:px-6 md:px-12 py-20">
+      <div className="container relative z-10 mx-auto px-4 sm:px-6 md:px-12 py-14">
         <div className="grid gap-16 md:grid-cols-2 items-center">
           {/* LEFT — Text */}
           <motion.div
@@ -87,20 +87,21 @@ export default function About() {
             viewport={{ once: true }}
             className="space-y-8"
           >
-            <div>
+            <div className="flex flex-col items-center md:items-start text-center md:text-left">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 relative z-10">
-                <span className="text-gray-500 block md:inline">About </span>
-                <span className="text-maroon block md:inline">SCALE</span>
+                <span className="text-gray-500">About </span>
+                <span className="text-maroon">SCALE</span>
               </h2>
 
               <motion.div
-                className="w-16 h-1 bg-maroon rounded-full"
-                initial={{ scaleX: 0 }}         // start at 0 width
-                animate={{ scaleX: 1 }}         // grow to full width
-                transition={{ duration: 0.6, ease: "easeOut" }} // smooth timing
-                style={{ transformOrigin: "left" }} // grow from left to right
+                className="w-16 h-1 bg-maroon rounded-full mt-2"
+                initial={{ scaleX: 0 }}
+                animate={{ scaleX: 1 }}
+                transition={{ duration: 0.6, ease: "easeOut" }}
+                style={{ transformOrigin: "left" }}
               />
             </div>
+
 
 
             <div className="space-y-6 text-gray-700 text-lg text-justify leading-relaxed">

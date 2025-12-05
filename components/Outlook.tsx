@@ -153,7 +153,7 @@ export default function OutlookPage() {
         >
           Industry leaders shape the{" "}
           <span className="font-semibold text-maroon">curriculum, mentor students, deliver courses, and co-create real business challenges</span> by{" "}
-          <span className="font-semibold">Learning here is practical, relevant, and future-proof.</span>
+          <span >Learning here is practical, relevant, and future-proof.</span>
         </motion.p>
 
       </motion.div>
