@@ -1,5 +1,6 @@
 import Hero from "../components/Hero";
 import About from "../components/About";
+import Aboutscale from "../components/Aboutscale";
 import Programs from "../components/Programs";
 import OutlookPage from "../components/Outlook";
 import EventsPage from "../components/Events";
@@ -12,8 +13,10 @@ import "./globals.css";
 import type { Metadata } from "next";
 
 export const metadata: Metadata = {
-  title: "One of the premier MBA departments at Sona College of Technology, located in the heart of Salem, Tamil Nadu, offering excellence in management education and leadership development.",
-  description: "MBA, premier MBA college, management studies, business administration, MBA department, top MBA college in Salem, leadership development, postgraduate management program, best MBA college in Tamil Nadu"
+  title:
+    "One of the premier MBA departments at Sona College of Technology, located in the heart of Salem, Tamil Nadu, offering excellence in management education and leadership development.",
+  description:
+    "MBA, premier MBA college, management studies, business administration, MBA department, top MBA college in Salem, leadership development, postgraduate management program, best MBA college in Tamil Nadu",
 };
 
 export default function HomePage() {
@@ -21,13 +24,13 @@ export default function HomePage() {
     <>
       <Hero />
       <About />
+      <Aboutscale />
 
       {/* Static background wrapper */}
       <div
         className="relative bg-fixed bg-center bg-cover"
         style={{
-          backgroundImage:
-            "url('/images/banner/mba_slider_7.webp')",
+          backgroundImage: "url('/images/banner/mba_slider_7.webp')",
         }}
       >
         {/* Darker overlay */}
@@ -39,7 +42,6 @@ export default function HomePage() {
         </div>
       </div>
 
-
       <OutlookPage />
       {/* <CampusLife /> */}
       {/* <Programs /> */}
@@ -47,6 +49,5 @@ export default function HomePage() {
       <AlumniStoriesPage />
       <RecruitersPage /> */}
     </>
-
   );
 }
