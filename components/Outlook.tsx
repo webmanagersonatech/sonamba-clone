@@ -1,7 +1,6 @@
 "use client";
 
 import { motion, Variants } from "framer-motion"; // <-- add Variants here
-
 import Link from "next/link";
 import Image from "next/image";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -20,26 +19,26 @@ import { Award, Briefcase, Building2, ShieldCheck } from "lucide-react";
 export default function OutlookPage() {
   const features = [
     {
-      title: "Top-Ranked Education",
-      description: "Ranked 9th Best B-School in Tamil Nadu 2025 by Outlook",
+      title: "100% Tech-Integrated Business Curriculum",
+      description: "From Day 1, students master the tools that power modern business—analytics, AI, automation, digital strategy, and cloud ecosystems.",
       icon: faTrophy,
       image: "/images/outlook/Top-Ranked.webp"
     },
     {
-      title: "Industry-Focused Learning",
-      description: "Curriculum designed in collaboration with Fortune 500 companies",
+      title: "Built on a 100-Year Legacy of Excellence",
+      description: "The Sona Group’s impact in technology, manufacturing, education, and innovation forms a solid foundation for SCALE’s cutting-edge business education model.",
       icon: faChartBar,
       image: "/images/outlook/Industry-Focused.webp"
     },
     {
-      title: "Global Network",
-      description: "Join 10,000+ alumni across 35+ countries",
+      title: "A Launchpad for Global Careers",
+      description: "With global partnerships and internationally benchmarked curriculum, SCALE prepares students to pursue leadership roles worldwide.",
       icon: faGlobe,
       image: "/images/outlook/Global.webp"
     },
     {
-      title: "Cutting-Edge Facilities",
-      description: "AI-powered learning labs and innovation centers",
+      title: "A Campus That Breathes Innovation",
+      description: "The fully residential program nurtures a thriving environment of collaboration, creativity, and high-energy learning.",
       icon: faLightbulb,
       image: "/images/outlook/Cutting-Edge.webp"
     },
@@ -143,56 +142,23 @@ export default function OutlookPage() {
       >
         <motion.h1
           variants={fadeUp}
-          className="text-2xl sm:text-3xl md:text-4xl font-bold text-maroon"
+          className="text-2xl sm:text-3xl  font-bold text-maroon"
         >
-          Why Choose Sona?
+          WHY SCALE-SSBM ?
         </motion.h1>
+
         <motion.p
           variants={fadeUp}
-          className="mt-3 sm:mt-4 text-base sm:text-lg md:text-xl text-gray-600 max-w-2xl mx-auto"
+          className="mt-3 sm:mt-4 text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto"
         >
-          Sona School of Management is ranked{" "}
-          <span className="font-semibold text-maroon">9<sup>th</sup> in Tamil Nadu</span> by{" "}
-          <span className="font-semibold">Outlook MBA Rankings</span>. With{" "}
-          <span className="font-semibold text-maroon">98% placements</span> and strong industry
-          partnerships, we deliver future-ready management education.{" "}
-
-
+          Industry leaders shape the{" "}
+          <span className="font-semibold text-maroon">curriculum, mentor students, deliver courses, and co-create real business challenges</span> by{" "}
+          <span className="font-semibold">Learning here is practical, relevant, and future-proof.</span>
         </motion.p>
 
       </motion.div>
 
-      {/* Stats */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeUp}
-        className="mb-10 sm:mb-14 rounded-2xl px-4 py-6 shadow-xl w-full max-w-6xl bg-white"
-      >
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {stats.map((item, i) => (
-            <motion.div
-              key={i}
-              whileHover={{ scale: 1.05 }}
-              transition={{ type: "spring", stiffness: 200 }}
-              className="flex flex-col items-center p-4 rounded-xl 
-                bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B]
-                 backdrop-blur-sm shadow-md hover:shadow-xl 
-                 border border-white/10 cursor-pointer"
-            >
-              <div className="relative mb-2 p-2 rounded-full bg-white/10 border border-white/20
-                        backdrop-blur-md shadow-inner">
-                {item.icon}
-              </div>
 
-              <p className="text-xl md:text-2xl font-bold text-white mb-1">{item.value}</p>
-              <p className="text-xs md:text-sm text-white/80">{item.label}</p>
-            </motion.div>
-          ))}
-        </div>
-
-      </motion.div>
 
       {/* Features + JEF */}
       <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 max-w-6xl w-full">
@@ -230,7 +196,7 @@ export default function OutlookPage() {
                 <h3 className="text-lg sm:text-xl font-semibold text-maroon mb-1">
                   {feature.title}
                 </h3>
-                <p className="text-gray-600 text-sm sm:text-base">{feature.description}</p>
+                <p className="text-gray-600 text-sm sm:text-base text-justify">{feature.description}</p>
               </div>
             </motion.div>
           ))}
@@ -285,6 +251,23 @@ export default function OutlookPage() {
                 </motion.div>
               ))}
             </div>
+            {/* One Line Summary */}
+            <motion.div
+              initial={{ opacity: 0, y: 10 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.6, ease: "easeOut", delay: 0.2 }}
+              viewport={{ once: true }}
+              className="px-6 sm:px-8 py-2 border-t border-gray-200 bg-white/70"
+            >
+              <p className="text-sm sm:text-base  text-justify text-gray-700 leading-relaxed">
+
+                Students should join <span className="font-semibold text-maroon">SCALE – Sona School of Business & Management</span>{" "}
+                because it is the only place where business education meets technology, innovation, and global
+                industry relevance—creating leaders who are built for the future.
+              </p>
+            </motion.div>
+
+
             {/* Extra */}
             <div className="px-6 sm:px-8  border border-gray-100 ">
               <p className="text-sm sm:text-base text-gray-600 leading-relaxed mb-6">
@@ -298,40 +281,6 @@ export default function OutlookPage() {
         </motion.div>
       </div>
 
-      {/* Final CTA */}
-      <motion.div
-        initial="hidden"
-        whileInView="visible"
-        viewport={{ once: true, amount: 0.2 }}
-        variants={fadeUp}
-        className="relative mt-12 sm:mt-16 w-full py-8 text-center bg-[radial-gradient(circle_at_center,_#e5e7eb_70%,_#ffffff_100%)]"
-      >
-        <h2 className="text-lg sm:text-xl md:text-2xl font-bold text-maroon mb-4">
-          Ready to Transform Your Future?
-        </h2>
-        <motion.div whileHover={{ scale: 1.05, y: -2 }} whileTap={{ scale: 0.95 }}>
-          <Link
-
-            href="https://www.sonabusinessschool.com/online-application?inst_id=ZFSQSGGCPYXQ9589"
-            target="_blank"
-            className="inline-flex items-center px-5 sm:px-6 md:px-8 py-2 sm:py-3 text-maroon font-semibold rounded-lg shadow-lg bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 border hover:bg-yellow-500 transition-all"
-          >
-            Apply Now
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              className="h-5 w-5 ml-2 animate-bounce"
-              viewBox="0 0 20 20"
-              fill="currentColor"
-            >
-              <path
-                fillRule="evenodd"
-                d="M10.293 5.293a1 1 0 011.414 0l4 4a1 1 0 010 1.414l-4 4a1 1 0 01-1.414-1.414L12.586 11H5a1 1 0 110-2h7.586l-2.293-2.293a1 1 0 010-1.414z"
-                clipRule="evenodd"
-              />
-            </svg>
-          </Link>
-        </motion.div>
-      </motion.div>
     </section>
   );
 }

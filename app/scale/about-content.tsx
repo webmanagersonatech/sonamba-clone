@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useEffect } from "react";
+import { useState, useEffect, useRef } from "react";
 import { useRouter, useSearchParams } from "next/navigation";
 import { motion, AnimatePresence } from "framer-motion";
 import Link from "next/link";
@@ -112,7 +112,8 @@ export default function ScalePage({ activeSlug }: any) {
   const router = useRouter();
   const searchParams = useSearchParams();
   const [activeTab, setActiveTab] = useState<TabId>("why-scale");
-
+  const tabsRef = useRef<(HTMLButtonElement | null)[]>([]);
+  const containerRef = useRef<HTMLDivElement | null>(null);
   // ALL TABS
   const sections: Section[] = [
     { id: "why-scale", title: "Why SCALE", icon: FiInfo },
@@ -206,15 +207,10 @@ export default function ScalePage({ activeSlug }: any) {
         {/* BANNER */}
         <div className="relative w-full">
           <AnimatePresence mode="wait">
-            <motion.img
-              key={tabImages[activeTab]}
-              src={tabImages[activeTab] || ""}
+            <img
+              src="/images/banner/about-banners/about-us.webp"
               alt="Scale Banner"
               className="w-full h-auto max-h-96 object-contain"
-              initial={{ x: "-100%", opacity: 0 }}
-              animate={{ x: 0, opacity: 1 }}
-              exit={{ x: "100%", opacity: 0 }}
-              transition={{ duration: 0.6, ease: "easeInOut" }}
             />
           </AnimatePresence>
 
@@ -265,29 +261,50 @@ export default function ScalePage({ activeSlug }: any) {
         </div>
 
         {/* TABS */}
-        <div className="w-full relative border-b border-gray-300 mt-6">
-          <div className="relative flex flex-wrap justify-center gap-2 sm:gap-4 w-full max-w-7xl mx-auto px-2 sm:px-0">
-            {sections.map((sec) => {
+
+        <div className="w-full bg-gray-50 relative border-b border-gray-300 pt-6">
+          <div
+            ref={containerRef}
+            className="relative flex flex-wrap justify-center gap-2 sm:gap-4 w-full max-w-7xl mx-auto px-2 sm:px-0"
+          >
+            {sections.map((sec, index) => {
               const Icon = sec.icon;
               const isActive = activeTab === sec.id;
 
               return (
                 <button
                   key={sec.id}
+                  ref={(el) => {
+                    tabsRef.current[index] = el;
+                  }}
                   onClick={() => handleTabChange(sec.id)}
-                  className={`flex items-center gap-2 px-4 py-2 rounded-md transition-all text-sm md:text-base ${
-                    isActive
-                      ? "text-primary font-semibold bg-primary-light"
-                      : "text-primary-700 hover:bg-gray-200 hover:text-primary"
-                  }`}
+                  className={`relative flex items-center gap-2 px-3 sm:px-4 py-2 sm:py-3 text-sm sm:text-base font-medium rounded-md transition-all duration-500 transform ${isActive
+                    ? "text-maroon scale-105"
+                    : "text-gray-700 hover:text-gray-900 hover:bg-gray-100"
+                    }`}
                 >
-                  <Icon className="w-4 h-4 md:w-5 md:h-5" />
-                  {sec.title}
+                  <Icon
+                    className={`w-4 h-4 sm:w-5 sm:h-5 transition-colors duration-500 ${isActive ? "text-maroon" : "text-gray-500"
+                      }`}
+                  />
+                  <span className="relative flex flex-col items-center">
+                    <span>{sec.title}</span>
+                    <span
+                      className={`block h-0.5 bg-maroon transition-all duration-500 rounded-full ${isActive ? "w-full" : "w-0"
+                        }`}
+                    ></span>
+                    {isActive && (
+                      <span className="w-0 h-0 border-l-4 border-r-4 border-t-4 border-l-transparent border-r-transparent border-t-maroon -mt-px"></span>
+                    )}
+                  </span>
                 </button>
               );
             })}
           </div>
         </div>
+
+
+
 
         {/* CONTENT */}
         <div className="w-full max-w-7xl mx-auto mt-6 sm:mt-8 md:mt-10 relative flex flex-col gap-6 sm:gap-8 md:gap-10 px-4 sm:px-6 lg:px-6">
@@ -302,12 +319,12 @@ export default function ScalePage({ activeSlug }: any) {
                 exit="exit"
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
-                <div className="text-center mb-8">
-                  <h2 className="text-2xl md:text-3xl font-bold text-primary mb-4">
+                <div className="text-start mb-8">
+                  <h3 className="text-2xl font-semibold text-maroon mb-4 text-start">
                     Why Students Should Join Sona School of Business &
                     Management - SCALE
-                  </h2>
-                  <p className="text-base md:text-lg text-primary-700">
+                  </h3>
+                  <p className="text-sm md:text-base text-primary-700">
                     India's First Truly Tech-Driven, Industry-Built Business
                     School
                   </p>
@@ -358,16 +375,14 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <FiEye className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-primary">
+
+                  <h3 className="text-2xl font-semibold text-maroon mb-4 text-center">
                     A Business School Built by the Industry, for the Industry,
                     to the Industry
-                  </h2>
+                  </h3>
                 </div>
 
-                <p className="text-base md:text-lg text-primary-700">
+                <p className="text-sm md:text-base text-primary-700">
                   Most business schools teach industry. SCALE-SSBM is designed
                   by industry.
                 </p>
@@ -375,7 +390,7 @@ export default function ScalePage({ activeSlug }: any) {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="bg-primary-light p-2 rounded-full mt-1">
+                      <div className=" mt-1">
                         <span className="font-bold text-primary">✓</span>
                       </div>
                       <div>
@@ -390,7 +405,7 @@ export default function ScalePage({ activeSlug }: any) {
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="bg-primary-light p-2 rounded-full mt-1">
+                      <div className="mt-1">
                         <span className="font-bold text-primary">✓</span>
                       </div>
                       <div>
@@ -406,7 +421,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                   <div className="space-y-4">
                     <div className="flex items-start gap-3">
-                      <div className="bg-primary-light p-2 rounded-full mt-1">
+                      <div className="mt-1">
                         <span className="font-bold text-primary">✓</span>
                       </div>
                       <div>
@@ -420,7 +435,7 @@ export default function ScalePage({ activeSlug }: any) {
                     </div>
 
                     <div className="flex items-start gap-3">
-                      <div className="bg-primary-light p-2 rounded-full mt-1">
+                      <div className="mt-1">
                         <span className="font-bold text-primary">✓</span>
                       </div>
                       <div>
@@ -437,7 +452,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 Students learn exactly what companies want RIGHT NOW.
+                    Students learn exactly what companies want RIGHT NOW.
                   </p>
                 </div>
               </motion.div>
@@ -454,15 +469,13 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <FaLaptopCode className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-primary">
+
+                  <h3 className="text-2xl font-semibold text-maroon mb-4 text-center">
                     India's Only Tech-Infused Business School Model
-                  </h2>
+                  </h3>
                 </div>
 
-                <p className="text-base md:text-lg text-primary-700">
+                <p className="text-sm md:text-base text-primary-700">
                   In tomorrow's leadership landscape, technology = power. SCALE
                   integrates:
                 </p>
@@ -550,7 +563,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 Every graduate leaves SCALE-SSBM with dual strength:
+                    Every graduate leaves SCALE-SSBM with dual strength:
                     business + technology.
                   </p>
                 </div>
@@ -568,15 +581,13 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <FaGlobe className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-primary">
+
+                  <h3 className="text-2xl font-semibold text-maroon mb-4 text-center">
                     Global Exposure From Day One
-                  </h2>
+                  </h3>
                 </div>
 
-                <p className="text-base md:text-lg text-primary-700">
+                <p className="text-sm md:text-base text-primary-700">
                   Sona Business School is built on global academic and industry
                   partnerships, offering:
                 </p>
@@ -664,7 +675,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 Students graduate with a global mindset and global
+                    Students graduate with a global mindset and global
                     opportunities.
                   </p>
                 </div>
@@ -682,13 +693,11 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <FaRocket className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
+
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-primary">
+                    <h3 className="text-2xl font-semibold text-maroon mb-4 text-center">
                       A Startup Incubation Centre Inside the Campus
-                    </h2>
+                    </h3>
                     <p className="text-primary-600 mt-2 text-sm md:text-base">
                       SCALE doesn't just prepare students for jobs—it prepares
                       them to create jobs.
@@ -765,7 +774,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 SCALE is the perfect choice for future founders,
+                    SCALE is the perfect choice for future founders,
                     innovators, and problem-solvers.
                   </p>
                 </div>
@@ -783,13 +792,11 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <FiUsers className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
+
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-primary">
+                    <h3 className="text-2xl font-semibold text-maroon mb-4 text-center">
                       A Fully Residential, High-Performance Learning Environment
-                    </h2>
+                    </h3>
                     <p className="text-primary-600 mt-2 text-sm md:text-base">
                       Two years at SCALE = A complete leadership immersion
                       experience.
@@ -882,7 +889,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 Students experience the real world of leadership, not
+                    Students experience the real world of leadership, not
                     just a classroom.
                   </p>
                 </div>
@@ -900,21 +907,19 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <FaStar className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-primary">
+
+                  <h3 className="text-2xl font-semibold text-maroon mb-4 text-center">
                     Powered by Sona Group's 100-Year Legacy
-                  </h2>
+                  </h3>
                 </div>
 
-                <p className="text-base md:text-lg text-primary-700">
+                <p className="text-sm md:text-base text-primary-700">
                   Backed by one of India's most respected names in:
                 </p>
 
                 <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                   {/* Technology */}
-                  <div className="bg-primary-50 p-4 rounded-lg text-center">
+                  <div className="bg-primary-50 p-4 border border-maroon-300 text-center">
                     <FaMicrochip className="text-3xl mb-2 text-primary mx-auto" />
                     <h4 className="font-bold text-primary-800 text-sm md:text-base">
                       Technology
@@ -922,7 +927,7 @@ export default function ScalePage({ activeSlug }: any) {
                   </div>
 
                   {/* Innovation */}
-                  <div className="bg-primary-50 p-4 rounded-lg text-center">
+                  <div className="bg-primary-50 p-4 border border-maroon-300 text-center">
                     <FaLightbulb className="text-3xl mb-2 text-primary mx-auto" />
                     <h4 className="font-bold text-primary-800 text-sm md:text-base">
                       Innovation
@@ -930,7 +935,7 @@ export default function ScalePage({ activeSlug }: any) {
                   </div>
 
                   {/* Manufacturing */}
-                  <div className="bg-primary-50 p-4 rounded-lg text-center">
+                  <div className="bg-primary-50 p-4 border border-maroon-300 text-center">
                     <FaIndustry className="text-3xl mb-2 text-primary mx-auto" />
                     <h4 className="font-bold text-primary-800 text-sm md:text-base">
                       Manufacturing
@@ -938,7 +943,7 @@ export default function ScalePage({ activeSlug }: any) {
                   </div>
 
                   {/* Education */}
-                  <div className="bg-primary-50 p-4 rounded-lg text-center">
+                  <div className="bg-primary-50 p-4 border border-maroon-300 text-center">
                     <FaGraduationCap className="text-3xl mb-2 text-primary mx-auto" />
                     <h4 className="font-bold text-primary-800 text-sm md:text-base">
                       Education
@@ -946,7 +951,7 @@ export default function ScalePage({ activeSlug }: any) {
                   </div>
 
                   {/* Research */}
-                  <div className="bg-primary-50 p-4 rounded-lg text-center">
+                  <div className="bg-primary-50 p-4 border border-maroon-300 text-center">
                     <FaFlask className="text-3xl mb-2 text-primary mx-auto" />
                     <h4 className="font-bold text-primary-800 text-sm md:text-base">
                       Research
@@ -954,7 +959,7 @@ export default function ScalePage({ activeSlug }: any) {
                   </div>
 
                   {/* Digital Transformation */}
-                  <div className="bg-primary-50 p-4 rounded-lg text-center">
+                  <div className="bg-primary-50 p-4 border border-maroon-300 text-center">
                     <FaRocket className="text-3xl mb-2 text-primary mx-auto" />
                     <h4 className="font-bold text-primary-800 text-sm md:text-base">
                       Digital Transformation
@@ -964,7 +969,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 SCALE stands on a century-old foundation of credibility,
+                    SCALE stands on a century-old foundation of credibility,
                     quality, and trust.
                   </p>
                 </div>
@@ -982,13 +987,11 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <FaChartLine className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
+
                   <div>
-                    <h2 className="text-2xl md:text-3xl font-bold text-primary">
+                    <h3 className="text-2xl font-semibold text-maroon mb-4 text-start">
                       Future-Proof Career Opportunities
-                    </h2>
+                    </h3>
                     <p className="text-primary-600 mt-2 text-sm md:text-base">
                       Because of the tech-enabled curriculum + global exposure +
                       incubation + industry integration
@@ -1014,8 +1017,8 @@ export default function ScalePage({ activeSlug }: any) {
                       className="bg-primary-50 p-4 rounded-lg hover:bg-primary-light transition-colors"
                     >
                       <div className="flex items-center gap-2">
-                        <div className="bg-primary p-1 rounded">
-                          <span className="text-white text-xs">✓</span>
+                        <div className=" p-1 rounded">
+                          <span className="text-maroon  text-xs">✓</span>
                         </div>
                         <h4 className="font-bold text-primary-800 text-sm md:text-base">
                           {role}
@@ -1027,7 +1030,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 SCALE-SSBM graduates are multi-skilled, employable,
+                    SCALE-SSBM graduates are multi-skilled, employable,
                     adaptable, and future-ready.
                   </p>
                 </div>
@@ -1045,15 +1048,13 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <MdOutlineAutoFixHigh className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-primary">
+
+                  <h3 className="text-2xl font-semibold text-maroon mb-4 text-center">
                     Leadership Development at the Core
-                  </h2>
+                  </h3>
                 </div>
 
-                <p className="text-base md:text-lg text-primary-700">
+                <p className="text-sm md:text-base text-primary-700">
                   SCALE-SSBM focuses deeply on developing essential leadership
                   qualities:
                 </p>
@@ -1068,8 +1069,8 @@ export default function ScalePage({ activeSlug }: any) {
                       "Emotional intelligence",
                     ].map((skill, index) => (
                       <div key={index} className="flex items-center gap-3">
-                        <div className="bg-primary-light p-2 rounded-full">
-                          <span className="font-bold text-primary">★</span>
+                        <div className=" p-1 rounded">
+                          <span className="text-maroon  text-xs">✓</span>
                         </div>
                         <span className="font-medium text-primary-800 text-sm md:text-base">
                           {skill}
@@ -1087,8 +1088,8 @@ export default function ScalePage({ activeSlug }: any) {
                       "Innovation mindset",
                     ].map((skill, index) => (
                       <div key={index} className="flex items-center gap-3">
-                        <div className="bg-primary-light p-2 rounded-full">
-                          <span className="font-bold text-primary">★</span>
+                        <div className=" p-1 rounded">
+                          <span className="text-maroon  text-xs">✓</span>
                         </div>
                         <span className="font-medium text-primary-800 text-sm md:text-base">
                           {skill}
@@ -1100,7 +1101,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 Students evolve into purpose-driven, confident, and
+                    Students evolve into purpose-driven, confident, and
                     ethical leaders.
                   </p>
                 </div>
@@ -1118,15 +1119,13 @@ export default function ScalePage({ activeSlug }: any) {
                 className="bg-white p-6 md:p-8 rounded-xl shadow-lg space-y-6"
               >
                 <div className="flex items-center gap-4 mb-6">
-                  <div className="bg-primary-light p-3 rounded-lg">
-                    <FaLightbulb className="w-7 h-7 md:w-8 md:h-8 text-primary" />
-                  </div>
-                  <h2 className="text-2xl md:text-3xl font-bold text-primary">
+
+                  <h3 className="text-2xl font-semibold text-maroon mb-4 text-center">
                     A School Designed for Tomorrow's World
-                  </h2>
+                  </h3>
                 </div>
 
-                <p className="text-base md:text-lg text-primary-700">
+                <p className="text-sm md:text-base text-primary-700">
                   SSBM prepares students for the future with a forward-looking
                   approach:
                 </p>
@@ -1201,7 +1200,7 @@ export default function ScalePage({ activeSlug }: any) {
 
                 <div className="bg-primary-50 p-4 rounded-lg border-l-4 border-primary mt-6">
                   <p className="font-semibold text-primary-800 text-sm md:text-base">
-                    👉 Students leave SCALE ready to lead the unknown and shape
+                    Students leave SCALE ready to lead the unknown and shape
                     the new.
                   </p>
                 </div>

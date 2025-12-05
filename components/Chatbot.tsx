@@ -21,7 +21,7 @@ const faqData = [
     fullMessage: `Contact us:
 Mobile: 87781 49726 / 94896 00283
 Office: 0427-4099898 / 0427-4099897
-Email: admission@sonabusinessschool.com
+Email: admissions@scale.edu.in
 Timing: 9:30 AM - 4:45 PM (Weekdays)`,
   },
   {

@@ -146,20 +146,20 @@ export default function ContactPage() {
                 EMAIL
               </h2>
               <a
-                href="mailto:admission@sonabusinessschool.com"
+                href="mailto:admissions@scale.edu.in"
                 className="leading-relaxed text-sm"
-                style={{ color: "#006466" }}
+                style={{ color: "#4A301C" }}
               >
-                admission@sonabusinessschool.com
+                admissions@scale.edu.in
               </a>
               <h2 className="title-font font-semibold text-gray-900 tracking-widest text-xs mt-4">
                 PHONE
               </h2>
               <p className="leading-relaxed text-sm flex flex-col">
-                <a href="tel:+919900016900" className="hover:underline" style={{ color: "#006466" }}>
+                <a href="tel:+919900016900" className="hover:underline" style={{ color: "#4A301C" }}>
                   +91 99000 16900
                 </a>
-                <a href="tel:+919489600283" className="hover:underline" style={{ color: "#006466" }}>
+                <a href="tel:+919489600283" className="hover:underline" style={{ color: "#4A301C" }}>
                   +91 94896 00283
                 </a>
               </p>
@@ -188,7 +188,7 @@ export default function ContactPage() {
                 placeholder="Enter your full name"
                 value={formData.name}
                 onChange={handleChange}
-                className="w-full bg-white rounded border border-gray-300 focus:border-[#006466] focus:ring-2 focus:ring-[#006466] text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-[#4A301C] focus:ring-2 focus:ring-[#4A301C] text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
 
@@ -203,7 +203,7 @@ export default function ContactPage() {
                 placeholder="Enter your email address"
                 value={formData.email}
                 onChange={handleChange}
-                className="w-full bg-white rounded border border-gray-300 focus:border-[#006466] focus:ring-2 focus:ring-[#006466] text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-[#4A301C] focus:ring-2 focus:ring-[#4A301C] text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
               />
             </div>
 
@@ -218,7 +218,7 @@ export default function ContactPage() {
                 placeholder="Type your message here (max 200 characters)"
                 value={formData.message}
                 onChange={handleChange}
-                className="w-full bg-white rounded border border-gray-300 focus:border-[#006466] focus:ring-2 focus:ring-[#006466] h-32 text-base outline-none text-gray-700 py-2 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-[#4A301C] focus:ring-2 focus:ring-[#4A301C] h-32 text-base outline-none text-gray-700 py-2 px-3 resize-none leading-6 transition-colors duration-200 ease-in-out"
               />
             </div>
 
@@ -234,7 +234,7 @@ export default function ContactPage() {
                 <button
                   type="button"
                   onClick={generateCaptcha}
-                  className="ml-2 px-2 py-1 bg-[#006466] text-white rounded text-sm"
+                  className="ml-2 px-2 py-1 bg-[#4A301C] text-white rounded text-sm"
                 >
                   <svg
                     xmlns="http://www.w3.org/2000/svg"
@@ -258,7 +258,7 @@ export default function ContactPage() {
                 placeholder="Type the text here"
                 value={formData.captchaAnswer}
                 onChange={handleChange}
-                className="w-full bg-white rounded border border-gray-300 focus:border-[#006466] focus:ring-2 focus:ring-[#006466] text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
+                className="w-full bg-white rounded border border-gray-300 focus:border-[#4A301C] focus:ring-2 focus:ring-[#4A301C] text-base outline-none text-gray-700 py-2 px-3 leading-8 transition-colors duration-200 ease-in-out"
 
               />
             </div>
@@ -266,7 +266,7 @@ export default function ContactPage() {
             <button
               type="submit"
               className="text-white border-0 py-2 px-6 focus:outline-none rounded text-lg"
-              style={{ backgroundColor: "#006466" }}
+              style={{ backgroundColor: "#4A301C" }}
             >
               Submit
             </button>

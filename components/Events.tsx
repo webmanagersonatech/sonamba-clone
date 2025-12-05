@@ -86,10 +86,10 @@ export default function NewsEvents() {
             />
             <div className="flex p-3 gap-3 items-start">
               <div className="flex flex-col items-center w-14 rounded-lg border shadow">
-                <span className="bg-[#0b3370] text-white w-full text-center rounded-t-lg text-xs font-bold py-1">
+                <span className="bg-gradient-to-r from-[#6A4A2F] via-[#4A301C] to-[#1F130B] text-white w-full text-center rounded-t-lg text-xs font-bold py-1">
                   {month}
                 </span>
-                <span className="text-lg font-bold leading-tight text-[#0b3370]">
+                <span className="text-lg font-bold leading-tight text-maroon-300">
                   {day}
                 </span>
                 <span className="text-[10px] text-gray-500">{year}</span>
@@ -133,17 +133,13 @@ export default function NewsEvents() {
               {activeTab === type && (
                 <motion.div
                   layoutId="activeTabBg"
-                  className="absolute inset-0 
-          bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400
-          rounded-md shadow-lg"
+                  className="absolute inset-0 bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400  rounded-md"
                   transition={{ type: "spring", stiffness: 400, damping: 30 }}
                 />
               )}
-
               <span
-                className={`relative z-10 transition-colors duration-300 ${
-                  activeTab === type ? "text-maroon" : "text-white"
-                }`}
+                className={`relative z-10 transition-colors duration-300 ${activeTab === type ? "text-maroon" : "text-white"
+                  }`}
               >
                 {type}
               </span>
@@ -190,8 +186,8 @@ export default function NewsEvents() {
                     activeTab === "News"
                       ? "/news"
                       : activeTab === "Events"
-                      ? "/events?tab=events"
-                      : "/events?tab=upcomingevents"
+                        ? "/events?tab=events"
+                        : "/events?tab=upcomingevents"
                   }
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
@@ -204,8 +200,8 @@ export default function NewsEvents() {
                   {activeTab === "News"
                     ? "View All News"
                     : activeTab === "Events"
-                    ? "View All Events"
-                    : "View All Upcoming Events"}
+                      ? "View All Events"
+                      : "View All Upcoming Events"}
                 </MotionLink>
               </motion.div>
             </AnimatePresence>
@@ -225,7 +221,7 @@ export default function NewsEvents() {
           opacity: 1 !important;
         }
         .custom-swiper .swiper-pagination-bullet-active {
-          background: #ffcc00 !important;
+          background: #1F130B !important;
         }
         @media (max-width: 640px) {
           .custom-swiper .swiper-slide > div {

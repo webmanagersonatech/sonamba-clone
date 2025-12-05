@@ -15,7 +15,7 @@ export default function Footer() {
           {/* Logo + Address + Map */}
           <div className="space-y-4">
             <div className="flex items-center gap-3 text-white">
-              <div className="h-14 w-16 rounded-full bg-white/20 overflow-hidden grid place-items-center">
+              <div className="h-24 w-20 overflow-hidden grid place-items-center">
                 <img
                   src={base64String}
                   alt="Sona Logo"
@@ -23,16 +23,16 @@ export default function Footer() {
                 />
               </div>
               <span className="font-semibold  leading-snug">
-                Sona School of Business and Management
+                Post Graduate Diploma <br></br>  in Management
               </span>
             </div>
 
             <p className="text-sm text-gray-300/80 leading-relaxed">
-              Sona College of Technology,
+              Sona Towers, Millers Road Vasanth Nagar,
               <br />
-              Junction Main Road, Salem – 636005,
-              <br />
-              Tamil Nadu, India.
+              Bengaluru Karnataka 560001.
+
+
             </p>
 
             <div className="aspect-video w-full rounded-lg overflow-hidden shadow-lg">
@@ -96,44 +96,12 @@ export default function Footer() {
                 </ul>
               </div>
 
-              {/* Rankings */}
-              <div>
-                <h4 className="text-white font-semibold mb-4">Rankings</h4>
-                <ul className="flex flex-col gap-2">
-                  {rankings.map((ranking) => (
-                    <li key={ranking.label}>
-                      <Link
-                        href={ranking.href as any}
-                        className="flex items-center gap-2 text-sm text-gray-200/90 hover:text-white transition"
-                      >
-                        <FaChevronRight className="text-xs" />
-                        {ranking.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-              </div>
+         
 
               {/* Facilities */}
               <div>
-                <h4 className="text-white font-semibold mb-4">Facilities</h4>
-                <ul className="flex flex-col gap-2">
-                  {alumniFacilities.map((facility) => (
-                    <li key={facility.label}>
-                      <Link
-                        href={facility.href as any}
-                        className="flex items-center gap-2 text-sm text-gray-200/90 hover:text-white transition"
-                      >
-                        <FaChevronRight className="text-xs" />
-                        {facility.label}
-                      </Link>
-                    </li>
-                  ))}
-                </ul>
-
-                {/* Social Icons */}
-                <h4 className="text-white font-semibold mt-6 mb-3">Follow Us</h4>
-                <div className="flex flex-wrap gap-3">
+                <h4 className="text-white font-semibold mb-4">Follow Us</h4>
+             <div className="flex flex-wrap gap-3">
                   {socialIcons.map(({ icon: Icon, href, color }, idx) => (
                     <a
                       key={idx}
@@ -150,6 +118,8 @@ export default function Footer() {
                     </a>
                   ))}
                 </div>
+
+            
               </div>
             </div>
           </div>

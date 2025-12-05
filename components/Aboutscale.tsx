@@ -92,10 +92,18 @@ export default function About() {
                 <span className="text-gray-500 block md:inline">About </span>
                 <span className="text-maroon block md:inline">SCALE</span>
               </h2>
-              <div className="w-16 h-1 bg-maroon rounded-full"></div>
+
+              <motion.div
+                className="w-16 h-1 bg-maroon rounded-full"
+                initial={{ scaleX: 0 }}         // start at 0 width
+                animate={{ scaleX: 1 }}         // grow to full width
+                transition={{ duration: 0.6, ease: "easeOut" }} // smooth timing
+                style={{ transformOrigin: "left" }} // grow from left to right
+              />
             </div>
 
-            <div className="space-y-6 text-gray-700 text-lg leading-relaxed">
+
+            <div className="space-y-6 text-gray-700 text-lg text-justify leading-relaxed">
               <p>
                 Welcome to SCALE - Sona School of Business & Management (SSBM),
                 a bold new leap in business education where technology, industry
@@ -151,10 +159,10 @@ export default function About() {
               whileInView={{ opacity: 1, x: 0 }}
               transition={{ duration: 0.7, ease: "easeOut" }}
               viewport={{ once: true }}
-              className="absolute -top-6 -right-6 bg-white p-6 rounded-xl shadow-xl max-w-[280px]"
+              className="absolute -top-6 -right-6  border border-maroon-300 bg-white p-6 rounded-t-xl shadow-xl max-w-[280px]"
             >
               <p className="text-gray-700 text-sm">
-                <span className="font-bold text-maroon">
+                <span className="font-bold text-maroon ">
                   Industry-Integrated Learning
                 </span>{" "}
                 in Bangalore's premier industrial ecosystem

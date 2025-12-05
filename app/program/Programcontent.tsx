@@ -259,8 +259,8 @@ export default function ProgramPageContent() {
         </p>
         <p>
           Alternatively, you can mail us at: 
-          <a href="mailto:admission@sonabusinessschool.com" class="text-maroon underline font-semibold">
-            admission@sonabusinessschool.com
+          <a href="mailto:admissions@scale.edu.in" class="text-maroon underline font-semibold">
+            admissions@scale.edu.in
           </a>
         </p>
       </div>
@@ -954,8 +954,8 @@ The campus accommodation is well connected with Wi-Fi, Unique State-of-the-art A
                   <div className="flex items-center gap-2 text-gray-700">
                     <MdEmail className="w-5 h-5 text-maroon/80 flex-shrink-0" />
                     <span>
-                      <a href="mailto:admission@sonabusinessschool.com">
-                        admission@sonabusinessschool.com
+                      <a href="mailto:admissions@scale.edu.in">
+                        admissions@scale.edu.in
                       </a>
                     </span>
                   </div>

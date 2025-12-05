@@ -16,6 +16,9 @@ import {
   FaLinkedin,
   FaYoutube,
 } from "react-icons/fa";
+import AdmissionForm from "./AdmissionForm";
+import Modal from "./Modal";
+
 
 export default function Header() {
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -23,7 +26,9 @@ export default function Header() {
   const [searchOpen, setSearchOpen] = useState(false);
   const [searchQuery, setSearchQuery] = useState("");
   const [searchResults, setSearchResults] = useState<any[]>([]);
-  const [modalOpen, setModalOpen] = useState(false);
+
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const [openMenu, setOpenMenu] = useState<number | null>(null);
 
   const pathname = usePathname();
@@ -244,7 +249,7 @@ export default function Header() {
               </Link>
 
               {/* External link for Sona College */}
-              <p className={`text-xs ${scrolled ? "mt-0" : "mt-2"}`}>
+              <p className={`text-xs  px-6 ${scrolled ? "mt-0" : "mt-2"}`}>
 
                 <a
                   href="https://www.sonatech.ac.in"
@@ -274,45 +279,56 @@ export default function Header() {
                   <div className="flex items-center">
                     {/* Parent link */}
                     <Link
-                      href={item.href as any}
+                      href={item.href as any} passHref
                       className={`px-2 md:px-2 py-3 rounded-lg inline-flex items-center ${pathname === "/"
                         ? scrolled
                           ? "text-gray-800 hover:text-maroon"
                           : "text-white"
-                        : "text-gray-800 hover:text-maroon" // non-home pages
+                        : "text-gray-800 hover:text-maroon"
                         }`}
-
-
                     >
-                      {item.label}
+                      <motion.span
+                        initial={{ opacity: 0, y: -10 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
+                      >
+                        {item.label}
+                      </motion.span>
                     </Link>
+
 
                     {/* Dropdown arrow for submenu */}
                     {item.submenu && (
-                      <button
+                      <motion.button
                         type="button"
+                        initial={{ opacity: 0, y: -8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ duration: 0.5, ease: "easeOut" }}
                         className="mt-0.5 text-gray-600 hover:text-maroon"
                         onClick={(e) => {
                           e.preventDefault();
-                          // Toggle submenu visibility on click (for touch devices)
-                          const submenu = (e.currentTarget.parentElement?.nextElementSibling as HTMLDivElement);
-                          if (submenu) {
-                            submenu.classList.toggle("hidden");
-                          }
+                          const submenu =
+                            e.currentTarget.parentElement?.nextElementSibling as HTMLDivElement;
+                          if (submenu) submenu.classList.toggle("hidden");
                         }}
                       >
-                        <FiChevronDown
-                          className={`mt-0.5 ${pathname === "/"
-                            ? scrolled
-                              ? "text-gray-600 hover:text-maroon"
-                              : "text-white"
-                            : "text-gray-600 hover:text-maroon" // non-home pages
-                            } transition-transform duration-300 group-hover:rotate-180`}
-                        />
-
-
-                      </button>
+                        <motion.div
+                          initial={{ rotate: -20, opacity: 0 }}
+                          animate={{ rotate: 0, opacity: 1 }}
+                          transition={{ duration: 0.4, ease: "easeOut" }}
+                        >
+                          <FiChevronDown
+                            className={`mt-0.5 ${pathname === "/"
+                              ? scrolled
+                                ? "text-gray-600 hover:text-maroon"
+                                : "text-white"
+                              : "text-gray-600 hover:text-maroon"
+                              } transition-transform duration-300 group-hover:rotate-180`}
+                          />
+                        </motion.div>
+                      </motion.button>
                     )}
+
                   </div>
 
                   {/* Submenu */}
@@ -320,19 +336,26 @@ export default function Header() {
                     <motion.div
                       initial={{ opacity: 0, y: -10 }}
                       animate={{ opacity: 1, y: 0 }}
-                      transition={{ duration: 0.25 }}
+                      transition={{ duration: 0.25, ease: "easeOut" }}
                       className="
       absolute left-0 top-full z-50 w-56
-      hidden group-hover:block
+      opacity-0 invisible
+      group-hover:opacity-100 group-hover:visible
+      group-hover:translate-y-2
+      transition-all duration-300
     "
                     >
                       <div className="border border-gray-200 bg-white rounded-b-xl p-2 shadow-xl">
                         {item.submenu.map((sub, index) => (
                           <motion.div
                             key={sub.label}
-                            initial={{ opacity: 0, x: -10 }}
+                            initial={{ opacity: 0, x: -20 }}
                             animate={{ opacity: 1, x: 0 }}
-                            transition={{ delay: index * 0.07 }}
+                            transition={{
+                              duration: 0.25,
+                              ease: "easeOut",
+                              delay: index * 0.07,
+                            }}
                           >
                             <Link
                               href={sub.href as any}
@@ -351,28 +374,32 @@ export default function Header() {
                     </motion.div>
                   )}
 
+
                 </div>
               ))}
 
               {/* Apply Now Button */}
-              <Link href="https://www.sonabusinessschool.com/online-application?inst_id=ZFSQSGGCPYXQ9589" passHref>
-                <button
-                  className={`group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-md border border-neutral-200 px-6 font-medium transition-all duration-100
+
+              <button
+
+                onClick={() => setIsModalOpen(true)}
+
+                className={`group relative inline-flex h-10 items-center justify-center overflow-hidden rounded-md border border-neutral-200 px-6 font-medium transition-all duration-100
   ${bgClass}
 ${scrolled
-                      ? "shadow-[2px_2px_rgb(200_200_200)]"
-                      : pathname === "/"
-                        ? "shadow-[2px_2px_rgb(255_255_255)]"
-                        : "shadow-[2px_2px_rgb(200_200_200)]"
-                    }
+                    ? "shadow-[2px_2px_rgb(200_200_200)]"
+                    : pathname === "/"
+                      ? "shadow-[2px_2px_rgb(255_255_255)]"
+                      : "shadow-[2px_2px_rgb(200_200_200)]"
+                  }
 
   hover:translate-x-[2px] hover:translate-y-[2px] hover:shadow-[0px_0px_rgb(82_82_82)]
 `}
 
-                >
-                  Apply Now →
-                </button>
-              </Link>
+              >
+                Apply Now →
+              </button>
+
 
             </nav>
 
@@ -452,15 +479,20 @@ ${scrolled
               ))}
 
               {/* Apply Now Button */}
-              <Link
-                href="https://www.sonabusinessschool.com/online-application?inst_id=ZFSQSGGCPYXQ9589"
-                target="_blank"
-                className="relative mt-4 w-full h-[50px] overflow-hidden rounded-lg border-2 border-maroon bg-white text-maroon shadow-2xl transition-all before:absolute before:top-0 before:left-0 before:h-full before:w-0 before:bg-yellow-500 before:transition-all before:duration-500 hover:text-white hover:before:w-full flex items-center justify-center gap-2"
+              <button
+                type="button"
+                onClick={() => setIsModalOpen(true)}
+                className="relative mt-4 w-full h-[50px] rounded-lg border-2 border-maroon bg-white text-maroon shadow-2xl overflow-hidden flex items-center justify-center gap-2 font-medium transition-colors duration-500 hover:text-white"
               >
-                <span className="relative z-10 font-medium">
+                {/* Hover overlay */}
+                <span className="absolute top-0 left-0 h-full w-0 bg-yellow-500 transition-all duration-500 ease-in-out group-hover:w-full"></span>
+
+                {/* Button text */}
+                <span className="relative z-10 flex items-center gap-2">
                   Apply Now <span className="text-lg">→</span>
                 </span>
-              </Link>
+              </button>
+
             </div>
           </div>
 
@@ -472,6 +504,10 @@ ${scrolled
       {pathname !== "/" && <div style={{ height: `${headerHeight}px` }} />}
 
 
+      <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+        <h2 className="text-2xl font-bold mb-4">Admission</h2>
+        <AdmissionForm />
+      </Modal>
     </>
   );
 }

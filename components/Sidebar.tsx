@@ -1,6 +1,8 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Modal from "./Modal";
+import AdmissionForm from "./AdmissionForm";
 import {
   FaPhone,
   FaEnvelope,
@@ -16,6 +18,8 @@ export default function FloatingSidebar() {
   const [visible, setVisible] = useState(true);
   const [mounted, setMounted] = useState(false);
   const [isMobile, setIsMobile] = useState(false);
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
 
   const items = [
     {
@@ -33,8 +37,8 @@ export default function FloatingSidebar() {
     {
       id: "email",
       icon: FaEnvelope,
-      label: "admission@sonabusinessschool.com",
-      href: "mailto:admission@sonabusinessschool.com",
+      label: "admissions@scale.edu.in",
+      href: "mailto:admissions@scale.edu.in",
     },
     {
       id: "whatsapp",
@@ -113,26 +117,38 @@ export default function FloatingSidebar() {
                 <button
                   aria-label={label}
                   className="text-white p-2 sm:p-2.5 md:p-3 rounded-full 
-                             hover:bg-white/60 hover:text-maroon-800 transition"
+             hover:bg-white/60 hover:text-maroon-800 transition"
                   onClick={() => {
-                    if (
-                      id === "apply" ||
-                      id === "phone" ||
-                      id === "email" ||
-                      id === "whatsapp"
-                    ) {
+                    if (id === "apply") {
+                      // 👉 OPEN MODAL instead of redirecting
+                      setIsModalOpen(true);
+                      return;
+                    }
+
+                    // Normal redirect for others
+                    if (id === "phone" || id === "email" || id === "whatsapp") {
                       window.open(href, "_blank");
-                    } else if (isMobile) {
+                      return;
+                    }
+
+                    if (isMobile) {
                       setActive(active === id ? null : id);
                     }
                   }}
                 >
                   <Icon className="text-base md:text-lg lg:text-xl" />
                 </button>
+
               </div>
             ))}
           </div>
+          <Modal isOpen={isModalOpen} onClose={() => setIsModalOpen(false)}>
+            <h2 className="text-2xl font-bold mb-4">Admission</h2>
+            <AdmissionForm />
+          </Modal>
+
         </motion.div>
+
       )}
     </AnimatePresence>
   );

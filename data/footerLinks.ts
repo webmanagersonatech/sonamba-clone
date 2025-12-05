@@ -2,15 +2,13 @@
 import { FaFacebook, FaInstagram, FaLinkedin, FaTwitter, FaYoutube } from "react-icons/fa6";
 
 export const footerLinks: { label: string; href: string }[] = [
-  { label: "About", href: "/about" },
-  { label: "Placements", href: "" },
+  { label: "About", href: "/about/aboutus" },
+  { label: "Events", href: "/events" },
   // { label: "Enrichment", href: "/enrichment" },
 ];
 
 export const quickLinks = [
-  { label: "Admissions", href: "" },
-  { label: "Courses", href: "/" },
-  { label: "Faculty", href: "/faculty" },
+  { label: "Admissions", href: "/admission/general" },
   { label: "Contact", href: "/contact" },
 ];
 

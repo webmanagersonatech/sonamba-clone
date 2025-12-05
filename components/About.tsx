@@ -31,9 +31,9 @@ export default function About() {
       const step = 20;
 
       const target = {
-        industry: 100,
-        recruiters: 250,
-        alumni: 2500,
+        industry: 500,
+        recruiters: 300,
+        alumni: 100000,
         ceo: 300,
       };
 
@@ -73,7 +73,7 @@ export default function About() {
         >
           <h2 className="text-2xl sm:text-3xl font-bold text-gray-900">
             <span className="text-gray-500">About </span>
-            <span className="text-maroon">SONA VALLIAPPA GROUP</span>
+            <span className="text-maroon">SONA GROUP</span>
           </h2>
         </motion.div>
 
@@ -145,7 +145,7 @@ export default function About() {
             <div className="inline-block relative">
               <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 relative z-10">
                 <span className="text-gray-500 block md:inline">About </span>
-                <span className="text-maroon block md:inline">SONA VALLIAPPA GROUP</span>
+                <span className="text-maroon block md:inline">SONA GROUP</span>
               </h2>
 
               {/* LEFT → CENTER */}
@@ -168,8 +168,6 @@ export default function About() {
             </div>
           </div>
 
-
-
           {/* Text */}
           <p data-aos="fade-up"
             className="text-gray-700 leading-relaxed text-sm sm:text-base md:text-lg text-justify"
@@ -185,8 +183,6 @@ export default function About() {
             The Sona Group has since been toeing the same line of ideology and has emerged as a
             valuable global conglomerate of national importance.
           </p>
-
-
 
           {/* Counters */}
           <motion.div
@@ -216,7 +212,7 @@ export default function About() {
 
           {/* Know More Button */}
           <Link
-            href={{ pathname: "/about" }}
+            href={{ pathname: "/about/aboutus" }}
             className="inline-block mt-6 px-6 py-3 bg-gradient-to-br from-gray-200 via-gray-300 to-gray-400 text-maroon font-medium rounded-xl shadow-lg hover:from-gray-300 hover:to-gray-500 transition-colors transition text-sm sm:text-base text-center"
           >
             Know More →

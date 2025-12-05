@@ -1,13 +1,10 @@
 import Hero from "../components/Hero";
 import About from "../components/About";
 import Aboutscale from "../components/Aboutscale";
-import Programs from "../components/Programs";
 import OutlookPage from "../components/Outlook";
 import EventsPage from "../components/Events";
-import TestimonialsPage from "../components/Testimonials";
-import AlumniStoriesPage from "../components/AluminiSuccesstories";
-import RecruitersPage from "../components/Recruiters";
-import CampusLife from "../components/Campuslife";
+import CTAApplyNow from "../components/CTAApplyNow";
+
 
 import "./globals.css";
 import type { Metadata } from "next";
@@ -30,11 +27,11 @@ export default function HomePage() {
       <div
         className="relative bg-fixed bg-center bg-cover"
         style={{
-          backgroundImage: "url('/images/banner/mba_slider_7.webp')",
+          backgroundImage: "url('/images/banner/mba_slider_1.webp')",
         }}
       >
         {/* Darker overlay */}
-        <div className="absolute inset-0 bg-black/85"></div>
+        <div className="absolute inset-0 bg-black/60"></div>
 
         {/* Content */}
         <div className="relative z-10">
@@ -43,11 +40,8 @@ export default function HomePage() {
       </div>
 
       <OutlookPage />
-      {/* <CampusLife /> */}
-      {/* <Programs /> */}
-      {/* <TestimonialsPage />
-      <AlumniStoriesPage />
-      <RecruitersPage /> */}
+      <CTAApplyNow/>
+
     </>
   );
 }
